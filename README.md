@@ -1,43 +1,60 @@
-# ChatGPT-SnippetTutor
+## Getting Started
+First, install `pnpm`, (another package manager):
 
-To make your application usable by others with their own API key, you should consider allowing users to input their API key as a configuration option. One way to do this is to create an environment variable that users can set when running the application. Here are the steps:
+`npm install -g pnpm`
 
-1. Update the Environment Variable for API Key:
+Then, cd to your source code for this project:
 
-Remove the hard-coded API key from your code.
-Use process.env.NEXT_PUBLIC_OPENAI_API_KEY to retrieve the API key from the environment variable.
+`cd <repos_path>/ChatGPT-SnippetTutor/`
 
-const openai = new OpenAI({
-apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-dangerouslyAllowBrowser: true,
-});
+## Adding .env files
+For local development, you'll need to add a `.env.local` file at the application's root.
 
-2. Create a .env.local File:
+REMEMBER, THIS FILE SHOULD NEVER BE COMMITTED TO GIT. IT ONLY EXISTS ON YOUR COMPUTER. THAT IS WHY IT'S IN THE .GITIGNORE FILE. WE DON'T WANT OUR API KEYS ANYWHERE ON THE INTERNET.
 
-Create a .env.local file in the root of your project.
+In your `.env.local` file, add the following line:
 
-NEXT_PUBLIC_OPENAI_API_KEY=YOUR_API_KEY_HERE
+```
+PLASMO_PUBLIC_OPENAI_API_KEY=<YOUR_API_KEY>
+```
 
-Add a placeholder for your API key, and instruct users to replace it with their own key.
+## Doing Development
+To run the development server:
 
-3. Update .gitignore File:
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-Ensure that your .env.local file is added to the .gitignore file to prevent accidentally committing sensitive information.
+If this doesn't work, you may need to re-boot whatever command terminal you're using.
 
-.env.local
+Next, open your browser and load the appropriate development build.
 
-4. Update README or Documentation:
+1. Go to `chrome://extensions/`
+2. Enable `Developer Mode` (Top-right)
+3. Select `Load Unpacked` (Top-left)
+4. In the File Explorer window that pops up, navigate to this folder in your repo and select it
+  - This is the folder that your project is built into whenever you make changes
+5. You should see `DEV | Snippet Tutor Plasmo` show up in your extensions.
+6. Pin the extension to Chrome. If you don't know how to do that, look it up.
 
-Include instructions in your README or documentation explaining how users can obtain their OpenAI API key and set it in the .env.local file.
+You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
 
-5. Provide Default Key in Code: TODO
+For further guidance, [visit our Documentation](https://docs.plasmo.com/)
 
-Optionally, you can provide a default API key in your code for testing purposes. This can be useful for users who just want to quickly try out the application.
+## Making production build
 
-const defaultAPIKey = "YOUR_DEFAULT_API_KEY";
-const openai = new OpenAI({
-apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || defaultAPIKey,
-dangerouslyAllowBrowser: true,
-});
+Run the following:
 
-Remember, it's essential to guide users on how to keep their API keys secure and not expose them publicly, especially if they plan to deploy the application. Providing clear instructions in your documentation can help users set up their API keys correctly.
+```bash
+pnpm build
+# or
+npm run build
+```
+
+This should create a production bundle for your extension, ready to be zipped and published to the stores.
+
+## Submit to the webstores
+
+The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
