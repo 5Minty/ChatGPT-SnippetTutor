@@ -1,43 +1,33 @@
-# ChatGPT-SnippetTutor
+This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 
-To make your application usable by others with their own API key, you should consider allowing users to input their API key as a configuration option. One way to do this is to create an environment variable that users can set when running the application. Here are the steps:
+## Getting Started
 
-1. Update the Environment Variable for API Key:
+First, run the development server:
 
-Remove the hard-coded API key from your code.
-Use process.env.NEXT_PUBLIC_OPENAI_API_KEY to retrieve the API key from the environment variable.
+```bash
+pnpm dev
+# or
+npm run dev
+```
 
-const openai = new OpenAI({
-apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-dangerouslyAllowBrowser: true,
-});
+Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
 
-2. Create a .env.local File:
+You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
 
-Create a .env.local file in the root of your project.
+For further guidance, [visit our Documentation](https://docs.plasmo.com/)
 
-NEXT_PUBLIC_OPENAI_API_KEY=YOUR_API_KEY_HERE
+## Making production build
 
-Add a placeholder for your API key, and instruct users to replace it with their own key.
+Run the following:
 
-3. Update .gitignore File:
+```bash
+pnpm build
+# or
+npm run build
+```
 
-Ensure that your .env.local file is added to the .gitignore file to prevent accidentally committing sensitive information.
+This should create a production bundle for your extension, ready to be zipped and published to the stores.
 
-.env.local
+## Submit to the webstores
 
-4. Update README or Documentation:
-
-Include instructions in your README or documentation explaining how users can obtain their OpenAI API key and set it in the .env.local file.
-
-5. Provide Default Key in Code: TODO
-
-Optionally, you can provide a default API key in your code for testing purposes. This can be useful for users who just want to quickly try out the application.
-
-const defaultAPIKey = "YOUR_DEFAULT_API_KEY";
-const openai = new OpenAI({
-apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY || defaultAPIKey,
-dangerouslyAllowBrowser: true,
-});
-
-Remember, it's essential to guide users on how to keep their API keys secure and not expose them publicly, especially if they plan to deploy the application. Providing clear instructions in your documentation can help users set up their API keys correctly.
+The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
