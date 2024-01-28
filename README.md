@@ -29,13 +29,12 @@ npm run dev
 
 If this doesn't work, you may need to re-boot whatever command terminal you're using.
 
-Next, open your browser and load the appropriate development build.
+Next, open your browser and load the appropriate development build. (You should only need to do this 1 time, ever).
 
 1. Go to `chrome://extensions/`
 2. Enable `Developer Mode` (Top-right)
 3. Select `Load Unpacked` (Top-left)
-4. In the File Explorer window that pops up, navigate to this folder in your repo and select it
-  - This is the folder that your project is built into whenever you make changes
+4. In the File Explorer window that pops up, navigate to this folder in your repo and select it. This is the folder that your project is built into whenever you make changes
 5. You should see `DEV | Snippet Tutor Plasmo` show up in your extensions.
 6. Pin the extension to Chrome. If you don't know how to do that, look it up.
 
