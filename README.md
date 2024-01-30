@@ -7,6 +7,10 @@ Then, cd to your source code for this project:
 
 `cd <repos_path>/ChatGPT-SnippetTutor/`
 
+and run:
+
+`npm install`
+
 ## Adding .env files
 For local development, you'll need to add a `.env.local` file at the application's root.
 
