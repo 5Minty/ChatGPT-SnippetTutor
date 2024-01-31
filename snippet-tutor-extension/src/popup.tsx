@@ -28,7 +28,7 @@ function IndexPopup() {
   }
 
   async function handleAPISubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    const res = await fetch('http://localhost:5000/');
+    const res = await fetch('http://localhost:5000/api/question/text');
 
     console.log(await res.text());
   }
