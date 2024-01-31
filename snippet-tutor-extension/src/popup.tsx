@@ -27,9 +27,14 @@ function IndexPopup() {
     }
   }
 
+  async function handleAPISubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    const res = await fetch('http://localhost:5000/');
+
+    console.log(await res.text());
+  }
+
   return (
     <ChakraProvider>
-
       <Flex flexDir={"column"} minWidth={'400px'}>
         <Flex>
           <Img
@@ -67,6 +72,10 @@ function IndexPopup() {
               </Flex>
             </form>
 
+            <Button onClick={(e) => handleAPISubmit(e)} type="submit" p={4} color={"blue"} width={100}>
+              Test Local API
+            </Button>
+
             {/* Answer section */}
             <Flex flexDir={"column"} gap={2}>
               <Heading size="md">Answer:</Heading>
@@ -75,7 +84,7 @@ function IndexPopup() {
           </Flex>
         </Flex>
       </Flex>
-    </ChakraProvider>
+    </ChakraProvider >
   )
 }
 
