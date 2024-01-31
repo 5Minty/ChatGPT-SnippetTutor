@@ -10,8 +10,23 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-router.get("/api/question/text", async (req: Request, res: Response) => {
-  res.send("you requested an answer to a question");
+router.post("/api/question/text", async (req: Request, res: Response) => {
+  const { question } = req.body;
+
+  console.log("Question: ", question);
+
+  if (!question) {
+    return res.status(400).send("No question provided");
+  }
+
+  const answer = await openai.chat.completions.create({
+    messages: [{ role: "system", content: question }],
+    model: "gpt-3.5-turbo",
+  });
+
+  console.log("Answer: ", answer.choices[0].message.content);
+
+  res.json(answer.choices[0].message.content);
 });
 
 export default router;

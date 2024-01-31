@@ -22,15 +22,11 @@ function IndexPopup() {
 
     if (answerRes !== null) {
       setAnswer(answerRes);
+
+      console.log(answerRes);
     } else {
       setAnswer("No answer available");
     }
-  }
-
-  async function handleAPISubmit(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    const res = await fetch('http://localhost:5000/api/question/text');
-
-    console.log(await res.text());
   }
 
   return (
@@ -71,11 +67,6 @@ function IndexPopup() {
                 </Button>
               </Flex>
             </form>
-
-            <Button onClick={(e) => handleAPISubmit(e)} type="submit" p={4} color={"blue"} width={100}>
-              Test Local API
-            </Button>
-
             {/* Answer section */}
             <Flex flexDir={"column"} gap={2}>
               <Heading size="md">Answer:</Heading>

@@ -1,9 +1,4 @@
-import OpenAI from "openai"
-
-const openai = new OpenAI({
-  apiKey: process.env.PLASMO_PUBLIC_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true
-})
+import routes from "./routes"
 
 function checkForErrors(response: Response): void {
   if (!response.ok) {
@@ -13,11 +8,24 @@ function checkForErrors(response: Response): void {
   }
 }
 
-export async function getTextAnswer(question: string) {
-  const answer = await openai.chat.completions.create({
-    messages: [{ role: "system", content: question }],
-    model: "gpt-3.5-turbo"
-  })
+export async function getTextAnswer(question: string): Promise<string> {
+  try {
+    const res = await fetch(routes.getTextAnswer(question), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ question })
+    })
 
-  return answer.choices[0].message.content
+    if (!res.ok) {
+      throw new Error(`Error: ${res.status}`)
+    }
+
+    const responseText = await res.text()
+
+    return await responseText
+  } catch (error) {
+    console.error("Error submitting API request:", error)
+  }
 }
