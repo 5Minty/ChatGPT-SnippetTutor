@@ -22,6 +22,8 @@ function IndexPopup() {
 
     if (answerRes !== null) {
       setAnswer(answerRes);
+
+      console.log(answerRes);
     } else {
       setAnswer("No answer available");
     }
@@ -29,7 +31,6 @@ function IndexPopup() {
 
   return (
     <ChakraProvider>
-
       <Flex flexDir={"column"} minWidth={'400px'}>
         <Flex>
           <Img
@@ -66,7 +67,6 @@ function IndexPopup() {
                 </Button>
               </Flex>
             </form>
-
             {/* Answer section */}
             <Flex flexDir={"column"} gap={2}>
               <Heading size="md">Answer:</Heading>
@@ -75,7 +75,7 @@ function IndexPopup() {
           </Flex>
         </Flex>
       </Flex>
-    </ChakraProvider>
+    </ChakraProvider >
   )
 }
 
