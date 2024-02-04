@@ -6,7 +6,8 @@ const app = express();
 
 const corsOptions: cors.CorsOptions = {
   origin: [
-    "chrome-extension://llpnobaoedhilpgginocfdfafmieefgk", // Replace with your Chrome Extension's ID for local development
+    "chrome-extension://llpnobaoedhilpgginocfdfafmieefgk",
+    "chrome-extension://idpgdiojcldbnigchifgfbcfiocbfhdo" // Replace with your Chrome Extension's ID for local development
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Content-Type",
