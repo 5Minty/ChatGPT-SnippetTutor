@@ -9,13 +9,16 @@ import {
   Img,
   Input
 } from "@chakra-ui/react"
-import { useState, type FormEvent } from "react"
+import { useRef, useState, type FormEvent } from "react"
 
 import { getTextAnswer } from "./lib/openAiService"
 
 function IndexPopup() {
   const [inputValue, setInputValue] = useState("") // State to manage input value
   const [answer, setAnswer] = useState<string>("") //State to manage answer value
+  const [imageName, setImageName] = useState<string>("")
+
+  const fileInputRef = useRef(null) //Reference to manange inputted file
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -29,6 +32,30 @@ function IndexPopup() {
     } else {
       setAnswer("No answer available")
     }
+  }
+
+  const handleButtonClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault()
+    console.log(fileInputRef)
+    console.log(fileInputRef.current)
+    fileInputRef.current.click()
+  }
+
+  const handleXClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    console.log(fileInputRef)
+    console.log(fileInputRef.current)
+    //fileInputRef is an object that holds file explorer I believe, so setting it to null just makes it so file explorer doesn't open on click
+    setImageName("")
+  }
+
+  const handleFileChange = (selectedImages: FileList) => {
+    const selectedFile = selectedImages[0]
+    setImageName(selectedFile.name)
+    // Do something with the selected file, for example, upload it or process it. Right now we will just display the name
+    console.log("Selected File:", selectedFile)
   }
 
   return (
@@ -55,7 +82,7 @@ function IndexPopup() {
 
                 //justify={"center"} I thought align was vertical and justify horizontal??
               >
-                <Flex>
+                <Flex flexDir={"column"}>
                   <FormControl>
                     <Input
                       placeholder="Ask a question"
@@ -64,13 +91,37 @@ function IndexPopup() {
                     />
                   </FormControl>
                   <FormControl>
-                    <Button p={4} color={"green"} width={100}>
+                    <Button
+                      onClick={(e) => handleButtonClick(e)}
+                      p={4}
+                      color={"green"}
+                      width={100}>
                       Add Image
                     </Button>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      style={{ display: "none" }}
+                      onChange={(e) => handleFileChange(e.target.files)}
+                    />
                   </FormControl>
                 </Flex>
                 <Flex flexDir={"column"} gap={10}>
-                  <FormLabel>Hello</FormLabel>
+                  <Flex flexDir={"row"} gap={0}>
+                    {imageName && (
+                      <FormLabel
+                        p={2}
+                        mt={2}
+                        bgColor={"gray.100"}
+                        borderRadius={6}>
+                        {imageName}
+                      </FormLabel>
+                    )}
+
+                    <Button onClick={(e) => handleXClick(e)} mt={2} p={0}>
+                      X
+                    </Button>
+                  </Flex>
 
                   <Flex justifyContent={"center"}>
                     <Button type="submit" p={4} color={"blue"} width={100}>
