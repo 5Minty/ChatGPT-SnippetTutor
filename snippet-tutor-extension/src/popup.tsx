@@ -58,6 +58,25 @@ function IndexPopup() {
     console.log("Selected File:", selectedFile)
   }
 
+  const handlePaste = (event) => {
+    const items = (event.clipboardData || event.originalEvent.clipboardData)
+      .items
+    for (let index in items) {
+      const item = items[index]
+      if (item.kind === "file" && item.type.includes("image")) {
+        const blob = item.getAsFile()
+        const reader = new FileReader()
+        reader.onload = () => {
+          // Process the pasted image
+          // For example, you can display it or upload it
+          // You can access the image data from reader.result
+          console.log(reader.result)
+        }
+        reader.readAsDataURL(blob)
+      }
+    }
+  }
+
   return (
     <ChakraProvider>
       <Flex flexDir={"column"} minWidth={"400px"}>
@@ -88,6 +107,7 @@ function IndexPopup() {
                       placeholder="Ask a question"
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
+                      onPaste={(e) => handlePaste(e)}
                     />
                   </FormControl>
                   <FormControl>
