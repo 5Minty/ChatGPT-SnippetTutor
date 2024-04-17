@@ -16,10 +16,11 @@ For local development, you'll need to add a `.env.local` file at the application
 
 REMEMBER, THIS FILE SHOULD NEVER BE COMMITTED TO GIT. IT ONLY EXISTS ON YOUR COMPUTER. THAT IS WHY IT'S IN THE .GITIGNORE FILE. WE DON'T WANT OUR API KEYS ANYWHERE ON THE INTERNET.
 
-In your `.env.local` file, add the following line:
+In your `.env.local` file, add the following:
 
 ```
 PLASMO_PUBLIC_OPENAI_API_KEY=<YOUR_API_KEY>
+PLASMO_PUBLIC_FUNC_APP_KEY=<Azure_Function_Key>
 ```
 
 ## Doing Development
