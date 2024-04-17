@@ -10,10 +10,11 @@ function checkForErrors(response: Response): void {
 
 export async function getTextAnswer(question: string): Promise<string> {
   try {
-    const res = await fetch(routes.getTextAnswer(question), {
+    const res = await fetch(routes.getTextAnswer, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "x-functions-key": process.env.PLASMO_PUBLIC_FUNC_APP_KEY
       },
       body: JSON.stringify({ question })
     })
